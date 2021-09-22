@@ -9691,18 +9691,18 @@ sanitize-filename@^1.6.3:
   dependencies:
     truncate-utf8-bytes "^1.0.0"
 
-sass-loader@^12.1.0:
-  version "12.1.0"
-  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-12.1.0.tgz#b73324622231009da6fba61ab76013256380d201"
-  integrity sha512-FVJZ9kxVRYNZTIe2xhw93n3xJNYZADr+q69/s98l9nTCrWASo+DR2Ot0s5xTKQDDEosUkatsGeHxcH4QBp5bSg==
+sass-loader@^11.0.1:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-11.1.1.tgz#0db441bbbe197b2af96125bebb7f4be6476b13a7"
+  integrity sha512-fOCp/zLmj1V1WHDZbUbPgrZhA7HKXHEqkslzB+05U5K9SbSbcmH91C7QLW31AsXikxUMaxXRhhcqWZAxUMLDyA==
   dependencies:
     klona "^2.0.4"
     neo-async "^2.6.2"
 
-sass@^1.42.0:
-  version "1.42.0"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.42.0.tgz#dc485e5cf7890a22fd6ccc6856c64f297239d595"
-  integrity sha512-kcjxsemgaOnfl43oZgO/IePLvXQI0ZKzo0/xbCt6uyrg3FY/FF8hVK9YoO8GiZBcEG2Ebl79EKnUc+aiE4f2Vw==
+sass@^1.32.12:
+  version "1.42.1"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.42.1.tgz#5ab17bebc1cb1881ad2e0c9a932c66ad64e441e2"
+  integrity sha512-/zvGoN8B7dspKc5mC6HlaygyCBRvnyzzgD5khiaCfglWztY99cYoiTUksVx11NlnemrcfH5CEaCpsUKoW0cQqg==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
 
