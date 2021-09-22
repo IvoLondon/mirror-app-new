@@ -1,0 +1,21 @@
+@import '../../assets/scss/variables.scss';
+
+.Clock {
+  text-align: left;
+  color: $primary-body-text;
+  display: inline-block;
+  vertical-align: top;
+  h4 {
+    font-size: $biggest-size-fonts;
+    font-weight: $font-weight-light;
+    margin: 0;
+    span {
+      font-size: $small-size-fonts;
+      padding-left: 4px;
+    }
+  }
+  p {
+    margin: 0;
+    font-size: $normal-size-fonts;
+  }
+}

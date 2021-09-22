@@ -1,40 +1,31 @@
 import React from 'react';
 import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
-import './App.global.css';
+import Clock from './features/Clock/Clock';
+import './App.scss';
 
-const Hello = () => {
+const InitialScreen = () => {
+  // const todoTasks = todoUsers.map((user): JSX.Element => {
+  //   return <TodoList {...user} />;
+  // });
+
   return (
-    <div>
-      <div className="Hello">
-        <img width="200px" alt="icon" src={icon} />
+    <div className="App">
+      <div className="App__row App__row--top">
+        <div className="App__row__column">
+          {/* <Forecast /> */}
+          Forecars
+        </div>
+        <div className="App__row__column App__row__column--right">
+          <Clock />
+          {/* <TrainTimes /> */}
+        </div>
       </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
+      <div className="App__row App__row--bottom">
+        <div className="App__row">
+          {/* <Birthdays /> */}
+          Birthdays
+        </div>
+        <div className="App__row">{/* todoTasks */}todo tasks</div>
       </div>
     </div>
   );
@@ -44,7 +35,7 @@ export default function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" component={Hello} />
+        <Route path="/" component={InitialScreen} />
       </Switch>
     </Router>
   );
