@@ -5,7 +5,8 @@
   "description": "Smart app Electron application based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "./dist/main/main.js",
   "author": {
-    "name": "Ivelin"
+    "name": "Ivelin",
+    "email": "ivelin.iliev@hotmail.com"
   },
   "scripts": {
     "electron-rebuild": "node -r ../../.erb/scripts/babel-register.js ../../.erb/scripts/electron-rebuild.js",
