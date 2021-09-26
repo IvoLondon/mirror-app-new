@@ -1,12 +1,14 @@
 import React from 'react';
 import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
 import Clock from './features/Clock/Clock';
+import { todoUsers } from './const';
+import TodoList from './features/TodoList/TodoList';
 import './App.scss';
 
 const InitialScreen = () => {
-  // const todoTasks = todoUsers.map((user): JSX.Element => {
-  //   return <TodoList {...user} />;
-  // });
+  const todoTasks = todoUsers.map((user): JSX.Element => {
+    return <TodoList key={user.project_id} {...user} />;
+  });
 
   return (
     <div className="App">
@@ -25,7 +27,7 @@ const InitialScreen = () => {
           {/* <Birthdays /> */}
           Birthdays
         </div>
-        <div className="App__row">{/* todoTasks */}todo tasks</div>
+        <div className="App__row">{todoTasks}</div>
       </div>
     </div>
   );

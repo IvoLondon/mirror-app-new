@@ -21,6 +21,14 @@ export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
+
+    if (process.env.NODE_ENV === 'production') {
+      const server = process.env.DEPLOY_SERVER_URL;
+      const url = `${server}/update/${process.platform}/${app.getVersion()}`;
+
+      autoUpdater.setFeedURL(url);
+    }
+
     autoUpdater.checkForUpdatesAndNotify();
   }
 }

@@ -51,6 +51,9 @@ jobs:
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
           # This is used for uploading release assets to github
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEPLOY_SERVER_URL: ${{ secrets.DEPLOY_SERVER_URL }}
+          REACT_TODO_API_IVO: ${{ secrets.REACT_TODO_API_IVO }}
+          REACT_TODO_API_MARGI: ${{ secrets.REACT_TODO_API_MARGI }}
         # ADD --win --mac when you need it
         run: |
           yarn postinstall && yarn build && yarn electron-builder --publish always --linux

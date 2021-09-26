@@ -1,0 +1,56 @@
+@import '../../assets/scss/variables.scss';
+
+.TodoList {
+  display: inline-block;
+  padding: 10px 10px 10px 40px;
+  box-sizing: border-box;
+  &__block {
+    &__title {
+      position: relative;
+      margin: 5px 0 10px;
+      font-size: $mid-size-fonts;
+      color: $primary-body-text;
+      font-weight: $font-weight-medium;
+      text-align: left;
+      &__icon {
+        top: -7px;
+        left: -38px;
+        max-width: 35px;
+        position: absolute;
+        transform: scale(0.6);
+      }
+    }
+    &__list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: left;
+
+      &__single {
+        margin-top: 10px;
+        position: relative;
+        color: $primary-body-text;
+        &__icon {
+          top: 50%;
+          left: -25px;
+          width: 8px;
+          height: 8px;
+          border-radius: 4px;
+          position: absolute;
+          display: inline-block;
+          border: 1px solid white;
+          transform: translateY(-50%);
+        }
+        &__task {
+          margin: 0;
+          text-transform: capitalize;
+          font-size: $normal-size-fonts;
+          font-weight: $font-weight-medium;
+        }
+        &.overdue {
+          color: red;
+        }
+      }
+    }
+  }
+}
