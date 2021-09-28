@@ -9,4 +9,4 @@ export const todoUsers = [
   },
 ];
 
-export const toIgnoreLink = '';
+export const forecastAPI = process.env.REACT_APP_FORECAST_APP_ID ?? '';

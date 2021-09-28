@@ -1,7 +1,8 @@
 import React from 'react';
 import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
-import Clock from './features/Clock/Clock';
-import { todoUsers } from './const';
+import Clock from './features/Clock';
+import Forecast from './features/Forecast';
+import { todoUsers, forecastAPI } from './const';
 import TodoList from './features/TodoList/TodoList';
 import './App.scss';
 
@@ -14,8 +15,7 @@ const InitialScreen = () => {
     <div className="App">
       <div className="App__row App__row--top">
         <div className="App__row__column">
-          {/* <Forecast /> */}
-          Forecars
+          <Forecast api={forecastAPI} />
         </div>
         <div className="App__row__column App__row__column--right">
           <Clock />

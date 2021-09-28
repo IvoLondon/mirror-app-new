@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './TodoList.scss';
 import todoIcon from './assets/memo.png';
 import useInterval from '../../utilities/customHooks';
@@ -10,17 +10,17 @@ import { ItemType, PropType } from './TodoList.d';
 const TodoList = ({ api, project_id }: PropType) => {
   const [items, getItems] = useState<[] | ItemType[]>([]);
 
-  const handleTodoAPI = async () => {
+  const handleTodoAPI = useCallback(async () => {
     const todoRequest = await fetchTodos(api, project_id);
     if (todoRequest.length) {
       getItems(sortByDate(filterDate(todoRequest)));
     }
     printConsoleLog('TodoList');
-  };
+  }, [api, project_id]);
 
   useEffect(() => {
     handleTodoAPI();
-  }, []);
+  }, [handleTodoAPI]);
 
   useInterval(handleTodoAPI, timeInMinutes(15));
 

@@ -1,0 +1,53 @@
+@import './../../../assets/scss/variables.scss';
+@import './../../../assets/css/owfont.min.css';
+
+.singleForecast {
+  display: inline-block;
+  text-align: left;
+  margin: 0 10px;
+  color: white;
+  i {
+    clear: both;
+    font-size: 20px;
+    vertical-align: top;
+  }
+  &__temperature,
+  &__speed {
+    font-weight: $font-weight-bold;
+    line-height: 1em;
+    font-size: $normal-size-fonts;
+    padding: 0;
+    margin: 0 2px;
+    display: inline-block;
+    vertical-align: top;
+    &__unit {
+      font-size: calc(#{$small-size-fonts} - 8px);
+    }
+  }
+  p {
+    font-size: $small-size-fonts;
+    margin: 0 0 5px 0;
+    padding: 0;
+    text-transform: capitalize;
+    font-weight: $font-weight-bold;
+  }
+  &__description {
+    font-size: $normal-size-fonts;
+  }
+  &--0 {
+    margin-bottom: 35px;
+    text-align: center;
+    i {
+      font-size: 80px;
+    }
+    .singleForecast__temperature {
+      font-size: $biggest-size-fonts;
+    }
+    .singleForecast__description {
+      font-size: $normal-size-fonts;
+    }
+    .wind-icon {
+      font-size: 20px;
+    }
+  }
+}
