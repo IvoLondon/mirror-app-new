@@ -31,8 +31,8 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "SmartMirror",
+    "appId": "me.ivelin.SmartMirror",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
