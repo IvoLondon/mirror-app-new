@@ -57,4 +57,4 @@ jobs:
           REACT_TODO_API_MARGI: ${{ secrets.REACT_TODO_API_MARGI }}
           REACT_APP_FORECAST_APP_ID: ${{ secrets.REACT_APP_FORECAST_APP_ID }}
         run: |
-          yarn postinstall && yarn build && yarn electron-builder --publish always --linux --mac
+          echo "Hello $REACT_APP_FORECAST_APP_ID" && yarn postinstall && yarn build && yarn electron-builder --publish always --linux --mac

@@ -26,7 +26,13 @@ jobs:
       - name: yarn test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # This is used for APIs
+          DEPLOY_SERVER_URL: ${{ secrets.DEPLOY_SERVER_URL }}
+          REACT_TODO_API_IVO: ${{ secrets.REACT_TODO_API_IVO }}
+          REACT_TODO_API_MARGI: ${{ secrets.REACT_TODO_API_MARGI }}
+          REACT_APP_FORECAST_APP_ID: ${{ secrets.REACT_APP_FORECAST_APP_ID }}
         run: |
+          echo "Hello $REACT_APP_FORECAST_APP_ID"
           yarn package
           yarn lint
           yarn tsc
