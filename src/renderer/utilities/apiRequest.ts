@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/react';
+
 export const fetchTodos = async (api: string, project_id: number) => {
   try {
     const res = await fetch(
@@ -11,13 +13,16 @@ export const fetchTodos = async (api: string, project_id: number) => {
         },
       }
     );
-    if (res.status !== 200) {
+    if (res.ok !== true) {
       throw new Error('Error fetching todos');
     }
 
     return await res.json();
   } catch (e) {
-    throw new Error('Error with fetchTodos');
+    Sentry.captureException(e);
+    console.error(`Error with fetchTodos! ${e}`);
+
+    return new Promise((resolve) => resolve(e));
   }
 };
 
@@ -27,12 +32,15 @@ export const fetchWeatherData = async (api: string) => {
       `http://api.openweathermap.org/data/2.5/forecast/daily?id=2643743&APPID=${api}&cnt=5&units=metric`
     );
 
-    if (res.status !== 200) {
+    if (res.ok !== true) {
       throw new Error('Error fetching weather data');
     }
 
     return await res.json();
   } catch (e) {
-    throw new Error('Error with fetchWeatherData');
+    Sentry.captureException(e);
+    console.error(`Error with fetchWeatherData! ${e}`);
+
+    return new Promise((resolve) => resolve(e));
   }
 };
