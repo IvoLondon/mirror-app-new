@@ -14,6 +14,7 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import debug from 'electron-debug';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -21,13 +22,6 @@ export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
-
-    if (process.env.NODE_ENV === 'production') {
-      const server = process.env.DEPLOY_SERVER_URL;
-      const url = `${server}/update/${process.platform}/${app.getVersion()}`;
-
-      autoUpdater.setFeedURL(url);
-    }
 
     autoUpdater.checkForUpdatesAndNotify();
   }
@@ -46,12 +40,15 @@ if (process.env.NODE_ENV === 'production') {
   sourceMapSupport.install();
 }
 
-const isDevelopment =
-  process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
+// const isDevelopment =
+//   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
-if (isDevelopment) {
-  require('electron-debug')();
-}
+// if (isDevelopment) {
+//   debug();
+// }
+
+// Enable debug for every environment
+debug();
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -67,12 +64,11 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
-  if (
-    process.env.NODE_ENV === 'development' ||
-    process.env.DEBUG_PROD === 'true'
-  ) {
-    await installExtensions();
-  }
+  // if (
+  //   process.env.NODE_ENV === 'development' ||
+  //   process.env.DEBUG_PROD === 'true'
+  // ) {}
+  await installExtensions();
 
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
