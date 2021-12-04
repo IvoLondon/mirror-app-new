@@ -1,7 +1,7 @@
 {
   "name": "mirror-app",
   "productName": "smart-mirror-app",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Smart app Electron application based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "./dist/main/main.js",
   "author": {
