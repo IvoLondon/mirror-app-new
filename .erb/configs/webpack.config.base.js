@@ -44,8 +44,10 @@ export default {
 
   plugins: [
     new Dotenv(),
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production',
-    }),
+    new webpack.EnvironmentPlugin([
+      'REACT_TODO_API_IVO',
+      'REACT_TODO_API_MARGI',
+      'REACT_APP_FORECAST_APP_ID',
+    ]),
   ],
 };
