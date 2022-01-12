@@ -43,11 +43,14 @@ export default {
   },
 
   plugins: [
-    new Dotenv(),
-    new webpack.EnvironmentPlugin([
-      'REACT_TODO_API_IVO',
-      'REACT_TODO_API_MARGI',
-      'REACT_APP_FORECAST_APP_ID',
-    ]),
+    new webpack.DefinePlugin({
+      'process.env': {
+        REACT_TODO_API_IVO: JSON.stringify(process.env.REACT_TODO_API_IVO),
+        REACT_TODO_API_MARGI: JSON.stringify(process.env.REACT_TODO_API_MARGI),
+        REACT_APP_FORECAST_APP_ID: JSON.stringify(
+          process.env.REACT_APP_FORECAST_APP_ID
+        ),
+      },
+    }),
   ],
 };
