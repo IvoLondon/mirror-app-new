@@ -14,7 +14,7 @@ export const fetchTodos = async (api: string, project_id: number) => {
       }
     );
     if (res.ok !== true) {
-      throw new Error('Error fetching todos');
+      throw new Error('Response not ok');
     }
 
     return await res.json();
