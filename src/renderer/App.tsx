@@ -6,7 +6,7 @@ import { todoUsers, forecastAPI } from './const';
 import TodoList from './features/TodoList/TodoList';
 import './App.scss';
 
-const InitialScreen = () => {
+export default function App() {
   const todoTasks = todoUsers.map((user): JSX.Element => {
     return <TodoList key={user.project_id} {...user} />;
   });
@@ -30,15 +30,5 @@ const InitialScreen = () => {
         <div className="App__row">{todoTasks}</div>
       </div>
     </div>
-  );
-};
-
-export default function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route path="/" component={InitialScreen} />
-      </Switch>
-    </Router>
   );
 }

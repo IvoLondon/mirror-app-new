@@ -151,8 +151,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/enzyme": "^3.10.12",
-    "@types/history": "4.7.8",
-    "@types/jest": "^29.2.5",
+    "@types/jest": "^29.2.6",
     "@types/node": "18.11.18",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
@@ -216,18 +215,17 @@
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3",
-    "yarn-deduplicate": "^3.1.0"
+    "yarn-deduplicate": "^6.0.1"
   },
   "dependencies": {
-    "@sentry/react": "^6.15.0",
-    "@sentry/tracing": "^6.15.0",
+    "@sentry/react": "^7.31.1",
+    "@sentry/tracing": "^7.31.1",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.3.5",
     "electron-updater": "^4.3.8",
-    "history": "4.x.x",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^5.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.7.0",
     "regenerator-runtime": "^0.13.5"
   },
   "devEngines": {
