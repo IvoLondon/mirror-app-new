@@ -51,6 +51,7 @@ if (process.env.NODE_ENV === 'production') {
 debug();
 
 const installExtensions = async () => {
+  // TODO: No longer supported, need to find a replacement
   const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
   const extensions = ['REACT_DEVELOPER_TOOLS'];
