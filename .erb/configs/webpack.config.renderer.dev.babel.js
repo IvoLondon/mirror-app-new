@@ -211,24 +211,14 @@ export default merge(baseConfig, {
 
   devServer: {
     port,
-    publicPath: '/',
     compress: true,
-    noInfo: false,
-    stats: 'errors-only',
-    inline: true,
-    lazy: false,
     hot: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
-    watchOptions: {
-      aggregateTimeout: 300,
-      ignored: /node_modules/,
-      poll: 100,
-    },
     historyApiFallback: {
       verbose: true,
       disableDotRule: false,
     },
-    before() {
+    onBeforeSetupMiddleware() {
       console.log('Starting Main Process...');
       spawn('npm', ['run', 'start:main'], {
         shell: true,
@@ -239,4 +229,11 @@ export default merge(baseConfig, {
         .on('error', (spawnError) => console.error(spawnError));
     },
   },
+  watch: true,
+  watchOptions: {
+    aggregateTimeout: 300,
+    ignored: /node_modules/,
+    poll: 100,
+  },
+  stats: 'errors-only',
 });
