@@ -8,7 +8,7 @@ import './App.scss';
 
 export default function App() {
   const todoTasks = todoUsers.map((user): JSX.Element => {
-    return <TodoList key={user.project_id} {...user} />;
+    return <TodoList key={user.id} {...user} />;
   });
 
   return (

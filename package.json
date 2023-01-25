@@ -217,6 +217,7 @@
     "yarn-deduplicate": "^6.0.1"
   },
   "dependencies": {
+    "@doist/todoist-api-typescript": "^2.1.2",
     "@sentry/react": "^7.31.1",
     "@sentry/tracing": "^7.31.1",
     "electron-debug": "^3.2.0",

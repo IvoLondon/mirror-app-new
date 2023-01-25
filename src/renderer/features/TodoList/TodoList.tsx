@@ -1,22 +1,25 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { TodoistApi } from '@doist/todoist-api-typescript';
 import './TodoList.scss';
 import todoIcon from './assets/memo.png';
 import useInterval from '../../utilities/customHooks';
 import { filterDate, sortByDate } from './utilities';
 import { printConsoleLog, timeInMinutes } from '../../utilities/utilities';
-import { fetchTodos } from '../../utilities/apiRequest';
 import { ItemType, PropType } from './TodoList.d';
 
-const TodoList = ({ api, project_id }: PropType) => {
+const TodoList = ({ api, id }: PropType) => {
   const [items, getItems] = useState<[] | ItemType[]>([]);
 
   const handleTodoAPI = useCallback(async () => {
-    const todoRequest = await fetchTodos(api, project_id);
+    const todoAPI = new TodoistApi(api);
+
+    const todoRequest = await todoAPI.getTasks({ project_id: id });
+
     if (todoRequest.length) {
       getItems(sortByDate(filterDate(todoRequest)));
     }
     printConsoleLog('TodoList');
-  }, [api, project_id]);
+  }, [api, id]);
 
   useEffect(() => {
     handleTodoAPI();
