@@ -1,0 +1,20 @@
+@import '../../../assets/scss/variables.scss';
+
+.Birthday {
+  text-align: left;
+  display: inline-block;
+  margin-bottom: 10px;
+  &__person {
+    font-size: $normal-size-fonts;
+    font-weight: $font-weight-medium;
+    margin: 0;
+  }
+  &__date {
+    font-size: $smallest-size-fonts;
+    font-weight: $font-weight-light;
+    margin: 0;
+  }
+  &--isToday {
+    color: yellow;
+  }
+}

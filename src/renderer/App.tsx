@@ -1,6 +1,7 @@
 import React from 'react';
 import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
 import Clock from './features/Clock';
+import Birthdays from './features/Birthdays';
 import Forecast from './features/Forecast';
 import { todoUsers, forecastAPI } from './const';
 import TodoList from './features/TodoList/TodoList';
@@ -24,8 +25,7 @@ export default function App() {
       </div>
       <div className="App__row App__row--bottom">
         <div className="App__row">
-          {/* <Birthdays /> */}
-          Birthdays
+          <Birthdays />
         </div>
         <div className="App__row">{todoTasks}</div>
       </div>
