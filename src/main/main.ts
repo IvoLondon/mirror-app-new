@@ -142,3 +142,49 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
 });
+
+// Open new browser window for google auth
+
+ipcMain.handle('google-auth', async (event, arg) => {
+  const authWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    show: false,
+    webPreferences: {
+      nodeIntegration: false,
+    },
+  });
+
+  function handleCallback(url: string) {
+    const rawCode = /code=([^&]*)/.exec(url) || null;
+    const code = rawCode && rawCode.length > 1 ? rawCode[1] : null;
+    const error = /\?error=(.+)$/.exec(url) || null;
+
+    // If there is a code, proceed to get token from github
+    if (error) {
+      console.log('Google-auth ', error);
+    }
+
+    if (code || error) {
+      if (code && mainWindow) {
+        mainWindow.webContents.executeJavaScript(
+          `window.localStorage.setItem('googleToken', '${code}');`
+        );
+      }
+
+      // Close the browser if code found or error
+      authWindow.destroy();
+    }
+    return code || error;
+  }
+
+  const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/calendar.readonly&response_type=code&redirect_uri=http://localhost:3000&client_id=${process.env.GOOGLE_CLIENT_ID}`;
+
+  authWindow.loadURL(googleUrl);
+
+  authWindow.show();
+
+  authWindow.webContents.on('did-redirect-navigation', (event, url) => {
+    handleCallback(url);
+  });
+});

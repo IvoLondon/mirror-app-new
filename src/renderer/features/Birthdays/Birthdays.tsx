@@ -12,6 +12,10 @@ const Birthdays = (): JSX.Element => {
   let accessTokenObject: Token;
 
   React.useEffect(() => {
+    if (!window.localStorage.getItem('googleToken')) {
+      window.electron.googleAuth();
+      //setTimeOn(6, 20, fetchCalendar, 43200 * 1000); //86400 * 1000 for a day
+    }
     // accessTokenObject = electron.remote.getGlobal('googleToken');
     // fetchCalendar();
     // setInterval(fetchCalendar, 3600 * 1000); //7200

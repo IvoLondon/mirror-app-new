@@ -4,6 +4,9 @@ contextBridge.exposeInMainWorld('electron', {
   myPing() {
     ipcRenderer.send('ipc-example', 'ping');
   },
+  googleAuth() {
+    ipcRenderer.invoke('google-auth');
+  },
   on(channel, func) {
     const validChannels = ['ipc-example'];
     if (validChannels.includes(channel)) {

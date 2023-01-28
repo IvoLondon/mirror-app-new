@@ -10,6 +10,8 @@ import webpackPaths from './webpack.paths.js';
 import checkNodeEnv from '../scripts/check-node-env';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
+require('dotenv').config();
+
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
 if (process.env.NODE_ENV === 'production') {
@@ -219,7 +221,6 @@ export default merge(baseConfig, {
       disableDotRule: false,
     },
     onBeforeSetupMiddleware() {
-      console.log('Starting Main Process...');
       spawn('npm', ['run', 'start:main'], {
         shell: true,
         env: process.env,
