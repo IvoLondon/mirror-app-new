@@ -7,6 +7,10 @@ contextBridge.exposeInMainWorld('electron', {
   googleAuth() {
     ipcRenderer.invoke('google-auth');
   },
+  async fetchGoogleCalendar(token) {
+    const res = await ipcRenderer.invoke('fetch-calendar-events', token);
+    return res;
+  },
   on(channel, func) {
     const validChannels = ['ipc-example'];
     if (validChannels.includes(channel)) {

@@ -15,6 +15,7 @@ import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import debug from 'electron-debug';
+import fetch from 'electron-fetch';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -168,17 +169,16 @@ ipcMain.handle('google-auth', async (event, arg) => {
     if (code || error) {
       if (code && mainWindow) {
         mainWindow.webContents.executeJavaScript(
-          `window.localStorage.setItem('googleToken', '${code}');`
+          `window.localStorage.setItem('googleAuth', '${code}');`
         );
       }
-
       // Close the browser if code found or error
       authWindow.destroy();
     }
     return code || error;
   }
 
-  const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/calendar.readonly&response_type=code&redirect_uri=http://localhost:3000&client_id=${process.env.GOOGLE_CLIENT_ID}`;
+  const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/calendar.readonly&response_type=code&redirect_uri=${process.env.GOOGLE_REDIRECT_URL}&client_id=${process.env.GOOGLE_CLIENT_ID}`;
 
   authWindow.loadURL(googleUrl);
 
@@ -187,4 +187,29 @@ ipcMain.handle('google-auth', async (event, arg) => {
   authWindow.webContents.on('did-redirect-navigation', (event, url) => {
     handleCallback(url);
   });
+});
+
+// Handle fetch calendar events
+ipcMain.handle('fetch-calendar-events', async (event, token) => {
+  const queries = new URLSearchParams();
+
+  queries.append('alwaysIncludeEmail', 'false');
+  queries.append('orderBy', 'startTime');
+  queries.append('maxResults', '10');
+  queries.append('singleEvents', 'true');
+  queries.append('timeMin', new Date().toISOString());
+
+  const calendar = await fetch(
+    `https://www.googleapis.com/calendar/v3/calendars/cq21prk1rdn1uvltf5fntbvl74@group.calendar.google.com/events?${queries.toString()}`,
+    {
+      withCredentials: true,
+      headers: {
+        Authorization: `${token.token_type} ${token.access_token}`,
+        Accepts: 'application/json',
+      },
+    }
+  );
+
+  const data = await calendar.json();
+  return data;
 });

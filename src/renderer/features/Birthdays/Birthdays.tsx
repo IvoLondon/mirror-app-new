@@ -9,56 +9,78 @@ import { BirthdaysType, TokenType } from './Birthdays.types';
 const Birthdays = (): JSX.Element => {
   const [birthdays, setBirthdays] = React.useState([]);
 
-  let accessTokenObject: Token;
-
   React.useEffect(() => {
-    if (!window.localStorage.getItem('googleToken')) {
+    if (!window.localStorage.getItem('googleAuth')) {
+      // @ts-ignore-next-line
       window.electron.googleAuth();
+
+      // TODO: rerender component when token is set
+      // window.electron.on('googleToken', (event, token) => {
+      //   console.log('token', token);
+      //   window.localStorage.setItem('googleAuth', token);
+      //   fetchCalendar();
+      // });
+    } else {
+      fetchCalendar();
+      // setInterval(fetchCalendar, 3600 * 1000); //7200
       //setTimeOn(6, 20, fetchCalendar, 43200 * 1000); //86400 * 1000 for a day
     }
-    // accessTokenObject = electron.remote.getGlobal('googleToken');
-    // fetchCalendar();
-    // setInterval(fetchCalendar, 3600 * 1000); //7200
+
     //setTimeOn(6, 20, fetchCalendar, 43200 * 1000); //86400 * 1000 for a day
+    // accessTokenObject = electron.remote.getGlobal('googleToken');
   }, []);
 
   const fetchCalendar = async () => {
-    const requestToken = await getAuthToken(accessTokenObject);
-    if (!requestToken) {
+    let token = window.localStorage.getItem('googleAccessToken');
+    if (!token) {
+      printConsoleLog('Missing Local G-Token');
+      token = await getAuthToken();
+    } else {
+      token = JSON.parse(token);
+    }
+
+    if (!token) {
       printConsoleLog('Missing G-Token');
       setBirthdays([]);
       return;
     }
 
-    const queries = `?alwaysIncludeEmail=false&orderBy=startTime&maxResults=10&singleEvents=true&timeMin=${new Date().toISOString()}`;
-    const calendar = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/cq21prk1rdn1uvltf5fntbvl74@group.calendar.google.com/events${queries}`,
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer "${requestToken}"`, //the token is a variable which holds the token
-          Accepts: 'application/json',
-        },
-      }
-    );
-    if (calendar.status === 200) {
+    const calendar = await window.electron.fetchGoogleCalendar(token);
+
+    if (calendar.items.length) {
       printConsoleLog('Birthdays list');
-      if (calendar.data.items.length) {
-        setBirthdays(calendar.data.items);
-      }
+      setBirthdays(calendar.items);
     }
   };
 
-  const getAuthToken = async (token: any): Promise<string> => {
-    if (typeof token != 'object' && !token.access_token) return '';
+  const getAuthToken = async (): Promise<TokenType | null> => {
+    const accessToken = window.localStorage.getItem('googleAuth');
+    if (!accessToken) {
+      console.error('Missing Google Access Token');
+      return null;
+    }
 
-    const requestNewToken = await fetch('https://oauth2.googleapis.com/token', {
-      client_id: process.env.GOOGLE_CLIENT_ID,
-      client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      refresh_token: token.refresh_token,
-      grant_type: 'refresh_token',
+    const params = new URLSearchParams();
+    params.append('code', decodeURIComponent(accessToken));
+    params.append('client_id', process.env.GOOGLE_CLIENT_ID);
+    params.append('client_secret', process.env.GOOGLE_SECRET_ID);
+    params.append('redirect_uri', process.env.GOOGLE_REDIRECT_URL);
+    params.append('grant_type', 'authorization_code');
+
+    const tokenEndpoint = `https://oauth2.googleapis.com/token?${params.toString()}`;
+
+    const requestNewToken = await fetch(tokenEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
     });
-    return requestNewToken.data.access_token;
+
+    const res = await requestNewToken.json();
+
+    window.localStorage.setItem('googleAccessToken', JSON.stringify(res));
+
+    return res;
   };
 
   const getBirthdayList = (birthdays: Birthdays[]) => {
