@@ -47,9 +47,13 @@ const Birthdays = (): JSX.Element => {
 
     const calendar = await window.electron.fetchGoogleCalendar(token);
 
-    if (calendar.items.length) {
+    if (calendar?.items?.length) {
       printConsoleLog('Birthdays list');
       setBirthdays(calendar.items);
+    } else {
+      printConsoleLog('No Birthdays');
+      console.error(calendar);
+      setBirthdays([]);
     }
   };
 
@@ -60,12 +64,23 @@ const Birthdays = (): JSX.Element => {
       return null;
     }
 
+    const googleAccessToken = window.localStorage.getItem('googleAccessToken')
+      ? JSON.parse(window.localStorage.getItem('googleAccessToken') as string)
+      : null;
+
     const params = new URLSearchParams();
-    params.append('code', decodeURIComponent(accessToken));
+
+    if (googleAccessToken && googleAccessToken.refresh_token) {
+      params.append('refresh_token', googleAccessToken.refresh_token);
+      params.append('grant_type', 'refresh_token');
+    } else {
+      params.append('code', decodeURIComponent(accessToken));
+      params.append('redirect_uri', process.env.GOOGLE_REDIRECT_URL);
+      params.append('grant_type', 'authorization_code');
+    }
+
     params.append('client_id', process.env.GOOGLE_CLIENT_ID);
     params.append('client_secret', process.env.GOOGLE_SECRET_ID);
-    params.append('redirect_uri', process.env.GOOGLE_REDIRECT_URL);
-    params.append('grant_type', 'authorization_code');
 
     const tokenEndpoint = `https://oauth2.googleapis.com/token?${params.toString()}`;
 
@@ -76,8 +91,14 @@ const Birthdays = (): JSX.Element => {
       },
     });
 
-    const res = await requestNewToken.json();
+    let res = await requestNewToken.json();
 
+    if (googleAccessToken) {
+      res = {
+        ...googleAccessToken,
+        ...res,
+      };
+    }
     window.localStorage.setItem('googleAccessToken', JSON.stringify(res));
 
     return res;

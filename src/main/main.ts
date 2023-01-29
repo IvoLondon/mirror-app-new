@@ -178,7 +178,18 @@ ipcMain.handle('google-auth', async (event, arg) => {
     return code || error;
   }
 
-  const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/calendar.readonly&response_type=code&redirect_uri=${process.env.GOOGLE_REDIRECT_URL}&client_id=${process.env.GOOGLE_CLIENT_ID}`;
+  const googleUrlParams = new URLSearchParams();
+
+  googleUrlParams.append(
+    'scope',
+    'https://www.googleapis.com/auth/calendar.readonly'
+  );
+  googleUrlParams.append('response_type', 'code');
+  googleUrlParams.append('redirect_uri', process.env.GOOGLE_REDIRECT_URL);
+  googleUrlParams.append('client_id', process.env.GOOGLE_CLIENT_ID);
+  googleUrlParams.append('access_type', 'offline');
+
+  const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?${googleUrlParams.toString()}`;
 
   authWindow.loadURL(googleUrl);
 
