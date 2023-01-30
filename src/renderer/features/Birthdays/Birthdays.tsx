@@ -31,12 +31,12 @@ const Birthdays = (): JSX.Element => {
   }, []);
 
   const fetchCalendar = async () => {
-    let token = window.localStorage.getItem('googleAccessToken');
-    if (!token) {
-      printConsoleLog('Missing Local G-Token');
-      token = await getAuthToken();
+    let token;
+    if (window.localStorage.getItem('googleAuth')) {
+      token = await getAccessToken();
     } else {
-      token = JSON.parse(token);
+      printConsoleLog('Missing Google Auth Token');
+      return;
     }
 
     if (!token) {
@@ -57,13 +57,8 @@ const Birthdays = (): JSX.Element => {
     }
   };
 
-  const getAuthToken = async (): Promise<TokenType | null> => {
-    const accessToken = window.localStorage.getItem('googleAuth');
-    if (!accessToken) {
-      console.error('Missing Google Access Token');
-      return null;
-    }
-
+  const getAccessToken = async (): Promise<TokenType | null> => {
+    const accessToken = window.localStorage.getItem('googleAuth') as string;
     const googleAccessToken = window.localStorage.getItem('googleAccessToken')
       ? JSON.parse(window.localStorage.getItem('googleAccessToken') as string)
       : null;
