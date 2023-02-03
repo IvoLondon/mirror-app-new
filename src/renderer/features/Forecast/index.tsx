@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { fetchWeatherData } from '../../utilities/apiRequest';
-import { timeInMinutes, printConsoleLog } from '../../utilities/utilities';
-import useInterval from '../../utilities/customHooks';
+import { fetchWeatherData } from '@utils/apiRequest';
+import { timeInMinutes, printConsoleLog } from '@utils/utilities';
+import useInterval from '@utils/customHooks';
 import SingleForecast from './SingleForecast';
 
 import { ForecastType, PropType } from './Forecast.d';

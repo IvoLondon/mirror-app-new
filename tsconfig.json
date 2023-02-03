@@ -21,7 +21,10 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "allowJs": true
+    "allowJs": true,
+    "paths": {
+      "@utils/*": ["./utilities/*"]
+    }
   },
   "exclude": ["test", "build/release", "build/app/dist", ".erb/dll"]
 }

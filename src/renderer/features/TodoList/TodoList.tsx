@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { TodoistApi } from '@doist/todoist-api-typescript';
 import './TodoList.scss';
 import todoIcon from './assets/memo.png';
-import useInterval from '../../utilities/customHooks';
 import { filterDate, sortByDate } from './utilities';
-import { printConsoleLog, timeInMinutes } from '../../utilities/utilities';
+import useInterval from '@utils/customHooks';
+import { printConsoleLog, timeInMinutes } from '@utils/utilities';
 import { ItemType, PropType } from './TodoList.d';
 
 const TodoList = ({ api, id }: PropType) => {

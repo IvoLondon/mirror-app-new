@@ -1,4 +1,4 @@
-import { printConsoleLog } from '../../../utilities/utilities';
+import { printConsoleLog } from '@utils/utilities';
 
 const getAccessToken = async (): Promise<TokenType | null> => {
   const accessToken = window.localStorage.getItem('googleAuth') as string;

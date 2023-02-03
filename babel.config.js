@@ -53,6 +53,16 @@ module.exports = (api) => {
       [require('@babel/plugin-proposal-class-properties')],
       require('@babel/plugin-proposal-json-strings'),
 
+      [
+        require('babel-plugin-module-resolver'),
+        {
+          root: ['./'],
+          alias: {
+            '@utils': './utilities',
+          },
+        },
+      ],
+
       ...(development ? developmentPlugins : productionPlugins),
     ],
   };

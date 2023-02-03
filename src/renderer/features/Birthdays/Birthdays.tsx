@@ -3,7 +3,7 @@ import Birthday from './Birthday';
 import './Birthdays.scss';
 import cakeIcon from './assets/birthday-cake.png';
 import fetchCalendar from './utils/fetchCalendar';
-import { setTimeOn } from './../../utilities/utilities';
+import { setTimeOn } from '@utils/utilities';
 import { BirthdaysType } from './Birthdays.types';
 
 const Birthdays = (): JSX.Element => {
