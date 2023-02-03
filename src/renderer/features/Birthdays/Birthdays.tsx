@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Birthday from './Birthday';
 import './Birthdays.scss';
-import cakeIcon from './assets/birthday-cake.png';
+import giftIcon from './assets/giftIcon.png';
 import fetchCalendar from './utils/fetchCalendar';
 import { setTimeOn } from '@utils/utilities';
 import { BirthdaysType } from './Birthdays.types';
@@ -49,7 +49,7 @@ const Birthdays = (): JSX.Element => {
   return (
     <div className="Birthdays">
       <h2 className="Birthdays__title">
-        <img src={cakeIcon} alt="cake icon" /> Birthdays
+        <img src={giftIcon} alt="cake icon" /> Birthdays
       </h2>
       <ul className="Birthdays__list">{getBirthdayList(birthdays)}</ul>
     </div>
