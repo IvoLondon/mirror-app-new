@@ -1,12 +1,8 @@
+import { Task } from '@doist/todoist-api-typescript';
+
 export type PropType = {
   api: string;
-  project_id: number;
+  id: string;
 };
 
-export type ItemType = {
-  id: number;
-  due: {
-    date: string;
-  };
-  content: string;
-};
+export type ItemType = Task;

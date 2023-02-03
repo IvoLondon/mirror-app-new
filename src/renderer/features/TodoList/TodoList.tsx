@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { TodoistApi } from '@doist/todoist-api-typescript';
 import './TodoList.scss';
-import todoIcon from './assets/memo.png';
-import { filterDate, sortByDate } from './utilities';
+
 import useInterval from '@utils/customHooks';
 import { printConsoleLog, timeInMinutes } from '@utils/utilities';
+
+import { todoUsers } from '../../const';
 import { ItemType, PropType } from './TodoList.d';
+import { filterDate, sortByDate, itemSchedule } from './utilities';
+
+import todoIcon from './assets/memo.png';
 
 const TodoList = ({ api, id }: PropType) => {
   const [items, getItems] = useState<[] | ItemType[]>([]);
@@ -13,7 +17,7 @@ const TodoList = ({ api, id }: PropType) => {
   const handleTodoAPI = useCallback(async () => {
     const todoAPI = new TodoistApi(api);
 
-    const todoRequest = await todoAPI.getTasks({ project_id: id });
+    const todoRequest = await todoAPI.getTasks({ projectId: id });
 
     if (todoRequest.length) {
       getItems(sortByDate(filterDate(todoRequest)));
@@ -28,16 +32,13 @@ const TodoList = ({ api, id }: PropType) => {
   useInterval(handleTodoAPI, timeInMinutes(15));
 
   const getTodoList = (itemsList: ItemType[]) => {
-    return itemsList.map(({ id, due, content }: ItemType) => {
-      const itemSchedule =
-        new Date(due.date).setHours(0, 0, 0, 0) <
-        new Date().setHours(0, 0, 0, 0)
-          ? 'overdue'
-          : 'future';
+    return itemsList.map(({ id: taskId, due, content }: ItemType) => {
+      const schedule = itemSchedule(due);
+
       return (
         <li
-          key={id}
-          className={`TodoList__block__list__single ${itemSchedule}`}
+          key={taskId}
+          className={`TodoList__block__list__single ${schedule}`}
         >
           <i className="TodoList__block__list__single__icon" />
           <h4 className="TodoList__block__list__single__task">{content}</h4>
@@ -63,4 +64,8 @@ const TodoList = ({ api, id }: PropType) => {
   );
 };
 
-export default TodoList;
+export default () => {
+  return todoUsers.map((user): React.ReactElement => {
+    return <TodoList key={user.id} {...user} />;
+  });
+};
