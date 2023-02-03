@@ -1,13 +1,15 @@
 import * as React from 'react';
+import { setTimeOn } from '@utils/utilities';
+
 import Birthday from './Birthday';
-import './Birthdays.scss';
 import giftIcon from './assets/giftIcon.png';
 import fetchCalendar from './utils/fetchCalendar';
-import { setTimeOn } from '@utils/utilities';
 import { BirthdaysType } from './Birthdays.types';
 
-const Birthdays = (): JSX.Element => {
-  const [birthdays, setBirthdays] = React.useState([]);
+import './Birthdays.scss';
+
+const Birthdays = () => {
+  const [birthdays, setBirthdays] = React.useState<any[]>([]);
 
   const updateCalendar = async () => {
     const calendar = await fetchCalendar();
@@ -22,15 +24,16 @@ const Birthdays = (): JSX.Element => {
       setTimeOn(6, 20, updateCalendar, undefined, 1000 * 120);
     } else {
       updateCalendar();
-      // re-fetch in 12 hours
-      setTimeOn(6, 20, updateCalendar, undefined, 43200 * 1000); //86400 * 1000 for a day
+      // re-fetch in 12 hours // 86400 * 1000 for a day
+      setTimeOn(6, 20, updateCalendar, undefined, 43200 * 1000);
     }
   }, []);
 
   const getBirthdayList = (items: BirthdaysType[]): any[] => {
     const todayDate = new Date();
     return items.map((birthdayInfo) => {
-      if (typeof birthdayInfo.start === 'undefined') return;
+      if (typeof birthdayInfo.start === 'undefined') return null;
+
       const bdate = new Date(birthdayInfo.start.date);
 
       const diffInTime = bdate.getTime() - todayDate.getTime();
@@ -38,6 +41,7 @@ const Birthdays = (): JSX.Element => {
         todayDate.getDate() === bdate.getDate() &&
         todayDate.getMonth() === bdate.getMonth();
       if (Math.floor(diffInTime / (1000 * 3600 * 24)) > 30) return null;
+
       return (
         <li key={birthdayInfo.summary + birthdayInfo.start.date}>
           <Birthday isToday={isToday} {...birthdayInfo} />
