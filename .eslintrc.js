@@ -2,6 +2,8 @@ module.exports = {
   extends: 'erb',
   rules: {
     // A temporary hack related to IDE not resolving correct package.json
+    'import/extensions': 'off',
+    'react/jsx-filename-extension': 'off',
     'import/no-extraneous-dependencies': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/function-component-definition': 'off',

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-use-before-define, no-console */
+/* eslint-disable no-use-before-define, no-console, default-param-last */
 export const printConsoleLog = (feature: string): void => {
   return console.log(`${new Date().toLocaleString('en-GB')} - ${feature}`);
 };
