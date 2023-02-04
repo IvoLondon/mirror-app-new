@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { setTimeOn } from '@utils/utilities';
+import { setTimeOn, printConsoleLog } from '@utils/utilities';
 
 import Birthday from './Birthday';
 import giftIcon from './assets/giftIcon.png';
@@ -18,10 +18,14 @@ const Birthdays = () => {
 
   React.useEffect(() => {
     if (!window.localStorage.getItem('googleAuth')) {
+      printConsoleLog('No google auth token, requesting...');
       // @ts-ignore-next-line
       window.electron.googleAuth();
       // re-fetch in 2 minute
-      setTimeOn(6, 20, updateCalendar, undefined, 1000 * 120);
+      setTimeout(() => {
+        printConsoleLog('Re-fetching calendar');
+        updateCalendar();
+      }, 1000 * 120);
     } else {
       updateCalendar();
       // re-fetch in 12 hours // 86400 * 1000 for a day
