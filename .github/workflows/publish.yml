@@ -20,7 +20,7 @@ jobs:
       - name: Install Node, NPM and Yarn
         uses: actions/setup-node@v1
         with:
-          node-version: 15
+          node-version: 18.13.0
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -56,5 +56,8 @@ jobs:
           REACT_TODO_API_IVO: ${{ secrets.REACT_TODO_API_IVO }}
           REACT_TODO_API_MARGI: ${{ secrets.REACT_TODO_API_MARGI }}
           REACT_APP_FORECAST_APP_ID: ${{ secrets.REACT_APP_FORECAST_APP_ID }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_SECRET_ID: ${{ secrets.GOOGLE_SECRET_ID }}
+          GOOGLE_REDIRECT_URL: ${{ secrets.GOOGLE_REDIRECT_URL }}
         run: |
           yarn postinstall && yarn build && yarn electron-builder --publish always --linux
