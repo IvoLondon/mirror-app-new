@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { fetchWeatherData } from '@utils/apiRequest';
+import API from '@utils/apiRequest';
 import { timeInMinutes, printConsoleLog } from '@utils/utilities';
 import useInterval from '@utils/customHooks';
 import SingleForecast from './SingleForecast';
@@ -11,7 +11,7 @@ const Forecast = ({ api }: PropType) => {
   const [forecastList, getForecast] = useState<ForecastType[]>([]);
 
   const handleAPI = useCallback(async () => {
-    const res = await fetchWeatherData(api);
+    const res = await API.fetchWeatherData(api);
     if (res?.list?.length) {
       getForecast(res.list);
     }

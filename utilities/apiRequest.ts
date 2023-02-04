@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/react';
 
-export const fetchWeatherData = async (api: string) => {
+const fetchWeatherData = async (api: string) => {
   try {
     const res = await fetch(
       `http://api.openweathermap.org/data/2.5/forecast/daily?id=2643743&APPID=${api}&cnt=5&units=metric`
@@ -15,6 +15,10 @@ export const fetchWeatherData = async (api: string) => {
     Sentry.captureException(e);
     console.error(`Error with fetchWeatherData! ${e}`);
 
-    return new Promise((resolve) => resolve(e));
+    return null;
   }
+};
+
+export default {
+  fetchWeatherData,
 };

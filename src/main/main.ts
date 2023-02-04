@@ -145,7 +145,7 @@ app.on('activate', () => {
 });
 
 // Open new browser window for google auth
-
+// eslint-disable-next-line no-unused-vars
 ipcMain.handle('google-auth', async (event, arg) => {
   const authWindow = new BrowserWindow({
     width: 800,
@@ -195,7 +195,7 @@ ipcMain.handle('google-auth', async (event, arg) => {
 
   authWindow.show();
 
-  authWindow.webContents.on('did-redirect-navigation', (event, url) => {
+  authWindow.webContents.on('did-redirect-navigation', (e, url) => {
     handleCallback(url);
   });
 });

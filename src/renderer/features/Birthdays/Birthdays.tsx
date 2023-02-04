@@ -4,7 +4,7 @@ import { setTimeOn } from '@utils/utilities';
 import Birthday from './Birthday';
 import giftIcon from './assets/giftIcon.png';
 import fetchCalendar from './utils/fetchCalendar';
-import { BirthdaysType } from './Birthdays.types';
+import { BirthdaysType } from './Birthdays.d';
 
 import './Birthdays.scss';
 

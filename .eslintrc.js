@@ -7,6 +7,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/function-component-definition': 'off',
+    'no-restricted-exports': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,
@@ -18,7 +19,6 @@ module.exports = {
   settings: {
     'import/resolver': {
       // See https://github.com/benmosher/eslint-plugin-import/issues/1396#issuecomment-575727774 for line below
-      node: {},
       webpack: {
         config: require.resolve('./.erb/configs/webpack.config.eslint.js'),
       },

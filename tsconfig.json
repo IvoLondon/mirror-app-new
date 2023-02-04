@@ -23,7 +23,7 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "paths": {
-      "@utils/*": ["./utilities/*"]
+      "@utils/*": ["../utilities/*"]
     }
   },
   "exclude": ["test", "build/release", "build/app/dist", ".erb/dll"]

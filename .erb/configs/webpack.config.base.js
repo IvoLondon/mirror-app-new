@@ -38,8 +38,9 @@ export default {
    * Determine the array of extensions that should be used to resolve modules.
    */
   resolve: {
+    // roots: [webpackPaths.rootPath],
     alias: {
-      '@utils/*': path.resolve(__dirname, '../../utilities/*'),
+      '@utils': path.join(__dirname, '../../utilities'),
     },
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     modules: [webpackPaths.srcPath, 'node_modules'],
